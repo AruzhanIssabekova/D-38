@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить продукт</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <h1>Добавить новый продукт</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <label for="id_name">Название продукта:</label>
+            {{ form.name }}
+        </div>
+        <div>
+            <label for="id_description">Описание продукта:</label>
+            {{ form.description }}
+        </div>
+        <div>
+            <label for="id_price">Цена продукта:</label>
+            {{ form.price }}
+        </div>
+        <div>
+            <label for="id_image">Изображение продукта:</label>
+            {{ form.image }}
+        </div>
+        <button type="submit">Добавить продукт</button>
+    </form>
+</body>
+</html>

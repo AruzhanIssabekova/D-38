@@ -1,0 +1,12 @@
+{% extends "layout/basic.html" %}
+{% block title %}Добавление объявления{% endblock %}
+{% block content %}
+
+    <h1>Добавить объявление</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Добавить</button>
+    </form>
+    <a href="{% url 'bboard:index' %}">Вернуться к списку</a>
+{% endblock %}

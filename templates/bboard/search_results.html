@@ -1,0 +1,20 @@
+{% extends "layout/basic.html" %}
+
+{% block content %}
+  <h1>Результаты поиска</h1>
+
+  {% if bbs %}
+    <ul>
+      {% for bb in bbs %}
+        <li>
+          <a href="{% url 'bboard:detail' bb.pk %}">{{ bb.title }}</a>
+          — Рубрика: {{ bb.rubric.name }}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>Ничего не найдено.</p>
+  {% endif %}
+  
+  <a href="{% url 'bboard:search' %}">Вернуться к поиску</a>
+{% endblock %}

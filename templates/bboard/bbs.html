@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formset for Bbs</title>
+</head>
+<body>
+    <h1>Formset for Bbs in {{ current_rubric.name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table>
+            <thead>
+                <tr>
+                    <th>Field 1</th>
+                    <th>Field 2</th>
+                    <!-- Добавьте другие заголовки полей, если необходимо -->
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
+                    <tr>
+                        {% for hidden in form.hidden_fields %}
+                            <td>{{ hidden }}</td>
+                        {% endfor %}
+                        {% for field in form.visible_fields %}
+                            <td>
+                                {{ field.errors }}
+                                {{ field }}
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Save</button>
+    </form>
+</body>
+</html>

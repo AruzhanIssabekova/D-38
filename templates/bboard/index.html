@@ -1,0 +1,32 @@
+{% extends "layout/basic.html" %}
+{% load bbcode_tags %}
+{% block content %}
+{% comment %} {% load ft %} {% endcomment %}
+
+
+    <h1>Список постов</h1>
+    {% for bb in bbs %}
+        <div>
+            <h2>{{ bb.title }}</h2>
+            <p>{{ bb.body }}</p>
+
+
+            {% bbcode  bb.content.rendered %}
+
+            <p>{{ bb.content|bbcode|safe }}</p>
+            <p>{{ bb.price|currency:'p. ' }}</p>
+            <p>{% ulist '1' '2' '3' '4' '5' '6' '7' '8' '9' %}</p>
+
+        </div>
+    {% endfor %}
+
+    <div>
+        {% if page_num > 1 %}
+        <a href="?page={{ page_num|add:-1 }}">&lt; Предыдущая</a>
+        {% endif %}
+        Страница {{ page_num }} из {{ total_pages }}
+        {% if page_num < total_pages %}
+        <a href="?page={{ page_num|add:1 }}">Следующая &gt;</a>
+        {% endif %}
+    </div>
+{% endblock %}

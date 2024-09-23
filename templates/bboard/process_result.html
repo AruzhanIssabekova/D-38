@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Результаты обработки формсета</title>
+</head>
+<body>
+    <h1>Результаты обработки формсета</h1>
+
+    {% if formset.errors %}
+        <div class="errors">
+            <h2>Ошибки:</h2>
+            <ul>
+                {% for form in formset %}
+                    {% if form.errors %}
+                        <li>
+                            <strong>Форма №{{ forloop.counter }}:</strong>
+                            <ul>
+                                {% for field, error in form.errors.items %}
+                                    <li>{{ field }}: {{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table>
+            <thead>
+                <tr>
+                    <th>Порядок</th>
+                    <th>Искомое слово</th>
+                    <th>Рубрика</th>
+                    <th>Удалить?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for form in formset %}
+                    <tr>
+                        <td>{{ form.ORDER }}</td>
+                        <td>{{ form.keyword }}</td>
+                        <td>{{ form.rubric }}</td>
+                        <td>{{ form.DELETE }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Отправить</button>
+    </form>
+
+    {% if not formset.errors %}
+        <p>Формы были успешно обработаны.</p>
+    {% endif %}
+</body>
+</html>

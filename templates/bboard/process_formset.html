@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formset Processing</title>
+</head>
+<body>
+    <h1>Process Formset</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        <table>
+            {% for form in formset %}
+                <tr>
+                    <td>{{ form.keyword.label_tag }}</td>
+                    <td>{{ form.keyword }}</td>
+                    <td>{{ form.rubric.label_tag }}</td>
+                    <td>{{ form.rubric }}</td>
+                    <td>{{ form.ORDER }}</td>
+                    <td>{{ form.DELETE }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

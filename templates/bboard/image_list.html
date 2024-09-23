@@ -1,0 +1,25 @@
+{% extends "layout/basic.html" %}
+{% block title %}Список изображений{% endblock %}
+{% block content %}
+    <h1>Список изображений</h1>
+
+    <ul>
+        {% for image in images %}
+            <li>
+                <img src="{{ image.img.url }}" alt="{{ image.desc }}" style="max-width: 200px; max-height: 200px;">
+                <p>{{ image.desc }}</p>
+                <a href="{{ image.img.url }}" download="{{ image.img.name }}">
+                    <button type="button">Скачать</button>
+                </a>
+                <form action="{% url 'bboard:delete_image' image.id %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </li>
+        {% empty %}
+            <p>Нет доступных изображений.</p>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'bboard:index' %}">Вернуться к списку</a>
+{% endblock %}

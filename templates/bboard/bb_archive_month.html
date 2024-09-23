@@ -1,0 +1,34 @@
+{% extends "layout/basic.html" %}
+
+{% block content %}
+    <h1>Архив за {{ month|date:"F Y" }}</h1>
+
+    {% if object_list %}
+        <ul>
+            {% for bb in object_list %}
+                <li>
+                    <h2>{{ bb.title }}</h2>
+                    <p>{{ bb.content }}</p>
+                    <p>{{ bb.published|date:"d.m.Y H:i:s" }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет объявлений за этот месяц.</p>
+    {% endif %}
+
+    <h2>Доступные месяцы</h2>
+    {% if date_list %}
+        <ul>
+            {% for date in date_list %}
+                <li>
+                    <a href="{% url 'bboard:month_archive' year=date.year month=date.month %}">
+                        {{ date|date:"F Y" }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Нет доступных месяцев.</p>
+    {% endif %}
+{% endblock %}

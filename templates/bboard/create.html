@@ -1,0 +1,55 @@
+{% extends "layout/basic.html" %}
+{% block title %}Добавление объявления{% endblock %}
+{% load bootstrap4 %}
+
+{% block content %}
+
+
+<form method="post" class="form">
+    {% csrf_token %}
+    {% comment %} {% bootstrap_form form layout='horizontal' show_help=False size='small'  %} {% endcomment %}
+    {% bootstrap_formset formset layout='horizontal' show_help=False size='small'  %}
+    {% bootstrap_button content='Button' button_typeE='submit' reset href size button_class extr_class name %}
+    {% bootstrap_field form.title placeholder  addon_befor addon_befor_class  %}
+    {% bootstrap_messages %}
+    {% bootstrap_alert content alert_type dismissble %}
+    {% bootstrap_label content label_type label_class label_title %}
+    {% bootstrap_pagination pages_to_show url size  parameter name %}
+
+
+    {% buttons submit='Добавить' %} {% endbuttons %}
+    {% bootstrap_formset_errors type='non_field' %}
+</form>
+
+    {% comment %} <form method="post">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        
+        {% if form.non_field_errors %}
+            {% for error in form.non_field_errors %}
+                <ul>
+                    <li><em>{{ error|escape }}</em></li>
+                </ul>
+            {% endfor %}
+        {% endif %}
+
+        {% for field in form.visible_fields %}
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <ul>
+                        <li><em>{{ error|escape }}</em></li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+            <p> {{ field.label_tag }}<br>{{ field }}<br>{{ field.help_text }}</p>
+        {% endfor %}
+        <p><input type="submit" value="Добавить"></p>
+    </form> {% endcomment %}
+
+
+
+
+
+{% endblock %}
